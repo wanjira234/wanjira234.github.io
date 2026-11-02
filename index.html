@@ -157,7 +157,7 @@
 
   /* Projects */
   .proj-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
-  .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .proj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
   .proj {
     background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
     overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow);
@@ -180,11 +180,18 @@
   .stats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
   .stat { font-size: .74rem; padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
   .stat b { color: var(--rose); }
-  .stack { font-size: .78rem; color: var(--plum-soft); margin-top: auto; }
-  .proj-link { margin-top: 12px; font-weight: 700; font-size: .88rem; color: var(--rose); text-decoration: none; }
+  .stack { font-size: .78rem; color: var(--plum-soft); }
+  .proj-link { margin-top: 10px; font-weight: 700; font-size: .88rem; color: var(--rose); text-decoration: none; }
   .proj-link:hover { text-decoration: underline; }
   .demo { font-size: .8rem !important; background: #fff4c9; border-radius: 10px; padding: 8px 10px; color: var(--plum) !important; margin: 4px 0 0 !important; }
-  .proj-links { display: flex; gap: 16px; flex-wrap: wrap; }
+  .proj.featured { grid-column: 1 / -1; flex-direction: row; }
+  .proj.featured .proj-art { flex: 0 0 44%; aspect-ratio: auto; min-height: 300px; }
+  .proj.featured .proj-body { padding: 28px 32px; }
+  .proj-links { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 4px; }
+  @media (max-width: 900px) {
+    .proj.featured { flex-direction: column; }
+    .proj.featured .proj-art { aspect-ratio: 16/10; min-height: 0; }
+  }
   @media (max-width: 900px) { .proj-grid { grid-template-columns: 1fr; max-width: 520px; } }
 
   /* Now + Experience */
@@ -418,10 +425,10 @@
 
     <div class="proj-grid">
       <!-- Maziwa -->
-      <article class="proj reveal">
+      <article class="proj featured reveal">
         <div class="proj-art">
           <span class="num">01</span>
-          <svg viewBox="0 0 320 200" aria-hidden="true">
+          <svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             <rect x="0" y="150" width="320" height="50" fill="#f7c2cf" opacity=".6"/>
             <g transform="translate(40 52)">
               <path d="M20 0h24v14l10 18v68a8 8 0 0 1-8 8H18a8 8 0 0 1-8-8V32l10-18z" fill="#fff" stroke="#e8a7b9" stroke-width="3"/>
