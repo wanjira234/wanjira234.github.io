@@ -3,172 +3,574 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Epiphany Wanjira Kiruri</title>
-<meta name="description" content="Epiphany Wanjira Kiruri, IT graduate in Nairobi. Data pipelines, optimisation and small tools.">
+<title>Wanjira · data, models & tools that get used</title>
+<meta name="description" content="Epiphany Wanjira Kiruri, Nairobi. Data engineering, optimisation and small tools for real problems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=DM+Sans:wght@400;500;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #ffffff;
-    --text: #1c1c1c;
-    --muted: #666666;
-    --line: #e4e4e4;
-    --link: #1f4e8c;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #141414;
-      --text: #e8e8e8;
-      --muted: #9a9a9a;
-      --line: #2c2c2c;
-      --link: #8fb4e8;
-    }
+    --blush: #fbeef0;
+    --blush-2: #f6dde2;
+    --card: #fff9fa;
+    --rose: #d6466f;
+    --rose-soft: #f2b6c6;
+    --plum: #2d1a26;
+    --plum-soft: #6e5562;
+    --line: #efd3da;
+    --caramel: #b9764b;
+    --leaf: #5f8f6b;
+    --radius: 22px;
+    --shadow: 0 10px 30px -14px rgba(120, 40, 70, .35);
   }
 
-  * { box-sizing: border-box; }
-
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
   body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
-    font-size: 18px;
+    font-family: "DM Sans", system-ui, sans-serif;
+    color: var(--plum);
+    background: var(--blush);
+    background-image:
+      radial-gradient(circle at 85% 8%, #ffd9e3 0, transparent 38%),
+      radial-gradient(circle at 5% 40%, #fde6d6 0, transparent 30%),
+      radial-gradient(var(--blush-2) 1.2px, transparent 1.4px);
+    background-size: auto, auto, 24px 24px;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
+  a { color: inherit; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px; }
 
-  main {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 64px 20px 80px;
+  /* Nav */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 0; gap: 16px;
   }
+  .logo { font-family: "Caveat", cursive; font-size: 2rem; color: var(--rose); text-decoration: none; line-height: 1; }
+  .logo span { color: var(--plum); }
+  .nav-links { display: flex; gap: 26px; list-style: none; font-size: .9rem; font-weight: 500; }
+  .nav-links a { text-decoration: none; color: var(--plum-soft); }
+  .nav-links a:hover { color: var(--rose); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 20px; border-radius: 999px; font-weight: 600; font-size: .92rem;
+    text-decoration: none; border: 1.5px solid var(--rose); transition: transform .2s, box-shadow .2s, background .2s;
+  }
+  .btn-fill { background: var(--rose); color: #fff; box-shadow: var(--shadow); }
+  .btn-fill:hover { transform: translateY(-2px); }
+  .btn-ghost { color: var(--rose); background: transparent; }
+  .btn-ghost:hover { background: #fff; }
+  @media (max-width: 760px) { .nav-links { display: none; } }
 
-  a { color: var(--link); }
-  a:hover { text-decoration-thickness: 2px; }
-
+  /* Hero */
+  .hero {
+    display: grid; grid-template-columns: 1.05fr 1fr; gap: 30px; align-items: center;
+    padding: 40px 0 70px;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 14px; font-size: .78rem; font-weight: 700; letter-spacing: .08em; color: var(--rose);
+    text-transform: uppercase;
+  }
   h1 {
-    font-size: 1.9rem;
-    font-weight: 700;
-    margin: 0 0 4px;
-    line-height: 1.2;
+    font-family: "Fraunces", serif; font-weight: 600;
+    font-size: clamp(2.3rem, 4.8vw, 3.7rem); line-height: 1.1; margin: 20px 0 18px;
   }
-  .where { color: var(--muted); margin: 0 0 24px; }
+  h1 em { font-style: italic; color: var(--rose); position: relative; white-space: nowrap; }
+  h1 em::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 2px; height: 10px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12'%3E%3Cpath d='M2 8 Q50 1 100 7 T198 5' fill='none' stroke='%23f2b6c6' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+    z-index: -1;
+  }
+  .lede { color: var(--plum-soft); font-size: 1.08rem; max-width: 470px; margin-bottom: 26px; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 26px; }
+  .find { font-size: .75rem; font-weight: 700; letter-spacing: .1em; color: var(--plum-soft); margin-bottom: 10px; }
+  .socials { display: flex; gap: 10px; }
+  .socials a {
+    width: 40px; height: 40px; border-radius: 50%; background: #fff; border: 1px solid var(--line);
+    display: grid; place-items: center; color: var(--rose); transition: transform .2s;
+  }
+  .socials a:hover { transform: translateY(-3px); }
+  .socials svg { width: 18px; height: 18px; }
 
-  h2 {
-    font-size: 1.05rem;
-    font-weight: 700;
-    margin: 48px 0 12px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--line);
+  .hero-art { position: relative; }
+  .hero-art .blob {
+    position: absolute; inset: 6% 4% 4% 10%; border-radius: 46% 54% 40% 60% / 55% 45% 55% 45%;
+    background: linear-gradient(160deg, #ffd3df, #f9e4d8); z-index: 0;
+  }
+  .hero-art svg.me { position: relative; z-index: 1; width: 100%; height: auto; display: block; }
+  .neon {
+    position: absolute; z-index: 2; top: 2%; right: 2%;
+    font-family: "Caveat", cursive; font-size: 1.35rem; line-height: 1.15; color: #fff;
+    padding: 14px 18px; border: 2.5px solid #fff; border-radius: 18px;
+    background: rgba(214, 70, 111, .82);
+    box-shadow: 0 0 0 4px rgba(242, 182, 198, .7), 0 0 24px rgba(214, 70, 111, .55);
+    text-align: center; animation: float 5s ease-in-out infinite;
+  }
+  .note {
+    position: absolute; z-index: 2; bottom: 4%; left: 2%;
+    font-family: "Caveat", cursive; font-size: 1.15rem; color: var(--plum);
+    background: #fff4c9; padding: 10px 14px; transform: rotate(-6deg);
+    box-shadow: var(--shadow); border-radius: 4px; animation: float 6s ease-in-out infinite reverse;
+  }
+  @keyframes float { 50% { transform: translateY(-8px); } }
+  .note { --r: -6deg; }
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; padding-top: 10px; }
+    .hero-art { max-width: 460px; margin: 0 auto; width: 100%; }
   }
 
-  p { margin: 0 0 14px; }
-
-  .links { margin: 0; }
-  .links a { margin-right: 18px; }
-
-  .item { margin: 0 0 26px; }
-  .item-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 12px;
-    flex-wrap: wrap;
+  /* Section shells */
+  section { padding: 70px 0; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--rose);
   }
-  .item-head strong { font-size: 1.05rem; }
-  .year { color: var(--muted); font-size: 0.9rem; white-space: nowrap; }
-  .item p { margin: 4px 0 4px; }
-  .meta { color: var(--muted); font-size: 0.9rem; margin: 0; }
-  .meta a { margin-right: 14px; }
+  h2 { font-family: "Fraunces", serif; font-weight: 600; font-size: clamp(1.8rem, 3.3vw, 2.5rem); line-height: 1.15; margin: 10px 0 14px; }
+  h2 em { font-style: italic; color: var(--rose); }
+  .sub { color: var(--plum-soft); max-width: 560px; }
 
-  ul { margin: 0; padding-left: 20px; }
-  li { margin-bottom: 6px; }
-
-  footer {
-    margin-top: 56px;
-    color: var(--muted);
-    font-size: 0.85rem;
+  /* What I do */
+  .do-panel {
+    background: var(--card); border: 1px solid var(--line); border-radius: 28px;
+    padding: 40px; box-shadow: var(--shadow);
+    display: grid; grid-template-columns: 1fr 2.4fr; gap: 34px; align-items: center;
+  }
+  .do-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .do-item { text-align: center; padding: 10px 6px; border-left: 1px dashed var(--line); }
+  .do-item:first-child { border-left: 0; }
+  .do-icon {
+    width: 66px; height: 66px; margin: 0 auto 12px; border-radius: 18px;
+    background: linear-gradient(150deg, #ffdbe5, #ffc0d1); display: grid; place-items: center;
+    box-shadow: 0 8px 18px -10px rgba(214,70,111,.6); transition: transform .25s;
+  }
+  .do-item:hover .do-icon { transform: rotate(-6deg) scale(1.06); }
+  .do-icon svg { width: 34px; height: 34px; }
+  .do-item h3 { font-size: .98rem; margin-bottom: 6px; }
+  .do-item p { font-size: .85rem; color: var(--plum-soft); line-height: 1.5; }
+  @media (max-width: 900px) {
+    .do-panel { grid-template-columns: 1fr; padding: 28px; }
+    .do-grid { grid-template-columns: repeat(2, 1fr); }
+    .do-item { border-left: 0; }
   }
 
-  @media (max-width: 480px) {
-    body { font-size: 17px; }
-    main { padding-top: 40px; }
+  /* Projects */
+  .proj-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
+  .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .proj {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow);
+    transition: transform .25s, box-shadow .25s;
+  }
+  .proj:hover { transform: translateY(-6px); box-shadow: 0 22px 40px -18px rgba(120,40,70,.45); }
+  .proj-art { position: relative; aspect-ratio: 16/10; background: linear-gradient(150deg, #ffe3ea, #fbd0db); }
+  .proj-art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .num {
+    position: absolute; top: 12px; left: 12px; z-index: 1;
+    width: 34px; height: 34px; border-radius: 50%; background: var(--rose); color: #fff;
+    display: grid; place-items: center; font-weight: 700; font-size: .85rem;
+  }
+  .proj-body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+  .proj-title { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .proj-title h3 { font-size: 1.08rem; }
+  .tag { font-size: .7rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: #ffe0e8; color: var(--rose); }
+  .tag.live { background: #e3f1e6; color: var(--leaf); }
+  .proj-body p { font-size: .9rem; color: var(--plum-soft); margin-bottom: 14px; }
+  .stats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .stat { font-size: .74rem; padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+  .stat b { color: var(--rose); }
+  .stack { font-size: .78rem; color: var(--plum-soft); margin-top: auto; }
+  .proj-link { margin-top: 12px; font-weight: 700; font-size: .88rem; color: var(--rose); text-decoration: none; }
+  .proj-link:hover { text-decoration: underline; }
+  @media (max-width: 900px) { .proj-grid { grid-template-columns: 1fr; max-width: 520px; } }
+
+  /* Now + Experience */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); }
+  .card h3 { font-family: "Fraunces", serif; font-size: 1.35rem; margin-bottom: 16px; }
+  .timeline { list-style: none; position: relative; padding-left: 30px; }
+  .timeline::before { content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 2px; background: var(--line); }
+  .timeline li { position: relative; margin-bottom: 16px; }
+  .timeline li::before {
+    content: ""; position: absolute; left: -29px; top: 7px; width: 12px; height: 12px; border-radius: 50%;
+    background: #fff; border: 3px solid var(--rose);
+  }
+  .timeline b { display: block; font-size: .95rem; }
+  .timeline span { font-size: .85rem; color: var(--plum-soft); }
+  @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
+
+  /* Contact */
+  .contact {
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; align-items: center;
+    background: linear-gradient(140deg, #fff 0%, #ffe6ec 100%);
+    border: 1px solid var(--line); border-radius: 30px; padding: 44px; box-shadow: var(--shadow);
+    position: relative; overflow: hidden;
+  }
+  .contact h2 { margin-top: 6px; }
+  .contact-list { list-style: none; display: grid; gap: 14px; }
+  .contact-list li { display: flex; align-items: center; gap: 12px; }
+  .contact-list .ic { width: 38px; height: 38px; border-radius: 50%; background: var(--rose); color: #fff; display: grid; place-items: center; flex-shrink: 0; }
+  .contact-list svg { width: 17px; height: 17px; }
+  .contact-list a { text-decoration: none; font-weight: 500; }
+  .contact-list a:hover { color: var(--rose); }
+  .sticky {
+    position: absolute; right: 26px; top: -6px; font-family: "Caveat", cursive; font-size: 1.1rem;
+    background: #ffd1dc; padding: 8px 12px; transform: rotate(5deg); box-shadow: var(--shadow);
+  }
+  @media (max-width: 760px) { .contact { grid-template-columns: 1fr; padding: 30px; } .sticky { display: none; } }
+
+  footer { text-align: center; font-size: .8rem; color: var(--plum-soft); padding: 40px 0 50px; }
+  footer .heart { color: var(--rose); }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .neon, .note { animation: none; }
+    * { transition: none !important; }
   }
 </style>
 </head>
 <body>
-<main>
 
-  <h1>Epiphany Wanjira Kiruri</h1>
-  <p class="where">Nairobi, Kenya</p>
+<div class="wrap">
+  <nav>
+    <a class="logo" href="#">wanjira<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#do">What I do</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#now">Now</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-fill" href="#contact">Let's talk ↗</a>
+  </nav>
 
-  <p>I studied Information Technology at JKUAT and graduated in 2025. Most of what I build sits around data: cleaning it, moving it between systems, and using it to make a decision, whether that is scheduling ships at a port or deciding how much feed a dairy cow should get.</p>
-  <p>I'm currently doing the Data Engineering programme at ALX Africa and studying financial engineering at WorldQuant University.</p>
-
-  <p class="links">
-    <a href="https://github.com/wanjira234">GitHub</a>
-    <a href="https://linkedin.com/in/epiphany-wanjira-3721b722b">LinkedIn</a>
-    <a href="mailto:epiphanywanjira@gmail.com">Email</a>
-  </p>
-
-  <h2>Projects</h2>
-
-  <div class="item">
-    <div class="item-head">
-      <strong>Maziwa Plus: dairy yield and feed tracking</strong>
-      <span class="year">2026, in progress</span>
+  <!-- HERO -->
+  <header class="hero">
+    <div>
+      <span class="chip">♡ Hey, I'm Wanjira</span>
+      <h1>I turn messy data into <em>useful</em> tools.</h1>
+      <p class="lede">IT graduate from JKUAT, based in Nairobi. I build data pipelines, optimisation models and small apps that real people use, starting with my parents' dairy farm.</p>
+      <div class="cta">
+        <a class="btn btn-fill" href="#work">See my work →</a>
+        <a class="btn btn-ghost" href="mailto:epiphanywanjira@gmail.com">Email me</a>
+      </div>
+      <p class="find">FIND ME ON</p>
+      <div class="socials">
+        <a href="https://github.com/wanjira234" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg></a>
+        <a href="https://linkedin.com/in/epiphany-wanjira-3721b722b" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg></a>
+        <a href="mailto:epiphanywanjira@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+      </div>
     </div>
-    <p>An app for small dairy farms, built from my parents' farm outwards. Farmers log milk per milking and the feed that went in, using the measures they actually use on the farm (buckets, tins, a truckload of napier), and the app turns that into cost per litre and margin over time. Vets and the milk buyer have their own separate views for insemination, vaccination dates and notices. Feed suggestions stay off until a farm has enough recorded days to support them, and never recommend more than a small change at a time.</p>
-    <p class="meta">Streamlit, PostgreSQL (Supabase, plain SQL). Team entry for the FNB App of the Year Hackathon.</p>
-  </div>
 
-  <div class="item">
-    <div class="item-head">
-      <strong>Berth scheduling: greedy heuristic vs. exact MILP</strong>
-      <span class="year">2026</span>
+    <div class="hero-art">
+      <div class="blob"></div>
+      <!-- Illustrated self-portrait: swap this <svg> for an <img src="me.png"> later if you get a 3D render -->
+      <svg class="me" viewBox="0 0 480 470" role="img" aria-label="Illustration of Wanjira at her laptop">
+        <defs>
+          <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c98a5c"/><stop offset="1" stop-color="#a86a40"/></linearGradient>
+          <linearGradient id="hood" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7a9be"/><stop offset="1" stop-color="#e17a98"/></linearGradient>
+          <linearGradient id="lap" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbe2e8"/><stop offset="1" stop-color="#eeb9c7"/></linearGradient>
+          <radialGradient id="cheek"><stop offset="0" stop-color="#e5768d" stop-opacity=".55"/><stop offset="1" stop-color="#e5768d" stop-opacity="0"/></radialGradient>
+        </defs>
+        <!-- desk -->
+        <rect x="20" y="398" width="440" height="22" rx="11" fill="#f3c6d1"/>
+        <!-- plant -->
+        <g transform="translate(395 300)">
+          <path d="M18 40c-14-18-30-22-34-40 14 4 26 14 34 40z" fill="#7aa784"/>
+          <path d="M22 40c4-24 16-34 32-44-2 18-14 34-32 44z" fill="#5f8f6b"/>
+          <path d="M20 40c-2-22 2-40 10-58 4 22 0 40-10 58z" fill="#8bbb94"/>
+          <path d="M0 40h44l-6 58H6z" fill="#fff" stroke="#f2b6c6" stroke-width="3"/>
+        </g>
+        <!-- mug -->
+        <g transform="translate(40 340)">
+          <rect x="0" y="0" width="46" height="58" rx="8" fill="#fff" stroke="#f2b6c6" stroke-width="3"/>
+          <path d="M46 14c16 0 16 26 0 26" fill="none" stroke="#f2b6c6" stroke-width="5"/>
+          <text x="23" y="26" text-anchor="middle" font-family="Caveat, cursive" font-size="12" fill="#d6466f">chai</text>
+          <text x="23" y="40" text-anchor="middle" font-family="Caveat, cursive" font-size="12" fill="#d6466f">+ code</text>
+          <path d="M14-6c-4-8 4-10 0-18M28-6c-4-8 4-10 0-18" stroke="#f2b6c6" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- body / hoodie -->
+        <path d="M120 400c-4-70 34-118 120-118s124 48 120 118z" fill="url(#hood)"/>
+        <path d="M205 286c10 26 60 26 70 0" fill="none" stroke="#d1678a" stroke-width="5" stroke-linecap="round"/>
+        <!-- neck -->
+        <path d="M218 248h44v40c-10 10-34 10-44 0z" fill="#a86a40"/>
+        <!-- braids back -->
+        <g stroke="#1e1418" stroke-width="10" stroke-linecap="round" fill="none">
+          <path d="M175 160c-10 50-6 100 6 140"/>
+          <path d="M305 160c10 50 6 100-6 140"/>
+          <path d="M190 170c-6 46-2 90 6 124"/>
+          <path d="M290 170c6 46 2 90-6 124"/>
+        </g>
+        <!-- head -->
+        <ellipse cx="240" cy="182" rx="70" ry="80" fill="url(#skin)"/>
+        <!-- ears -->
+        <ellipse cx="170" cy="190" rx="10" ry="16" fill="#b4764a"/>
+        <ellipse cx="310" cy="190" rx="10" ry="16" fill="#b4764a"/>
+        <circle cx="170" cy="210" r="4" fill="#f2c94c"/>
+        <circle cx="310" cy="210" r="4" fill="#f2c94c"/>
+        <!-- cornrows on top -->
+        <path d="M168 168c0-62 34-92 72-92s72 30 72 92c-14-30-40-46-72-46s-58 16-72 46z" fill="#241820"/>
+        <g stroke="#3a2a33" stroke-width="3" fill="none" stroke-linecap="round" opacity=".9">
+          <path d="M240 80v42"/>
+          <path d="M218 82c-4 14-6 28-4 42"/><path d="M262 82c4 14 6 28 4 42"/>
+          <path d="M198 90c-8 14-12 30-12 46"/><path d="M282 90c8 14 12 30 12 46"/>
+          <path d="M182 106c-8 14-12 30-12 46"/><path d="M298 106c8 14 12 30 12 46"/>
+        </g>
+        <!-- face -->
+        <ellipse cx="212" cy="196" rx="11" ry="13" fill="#fff"/>
+        <ellipse cx="268" cy="196" rx="11" ry="13" fill="#fff"/>
+        <circle cx="214" cy="199" r="8" fill="#2a1a12"/>
+        <circle cx="270" cy="199" r="8" fill="#2a1a12"/>
+        <circle cx="217" cy="195" r="2.6" fill="#fff"/>
+        <circle cx="273" cy="195" r="2.6" fill="#fff"/>
+        <path d="M198 178c8-6 20-6 26-2M256 176c6-4 18-4 26 2" stroke="#241820" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M238 206c-3 8-2 14 4 16" stroke="#8d5532" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="196" cy="222" r="14" fill="url(#cheek)"/>
+        <circle cx="284" cy="222" r="14" fill="url(#cheek)"/>
+        <path d="M222 234c10 10 26 10 36 0" stroke="#7a3a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- hand under chin -->
+        <path d="M262 262c12-4 30 2 36 18 6 16-4 30-14 40l-34-6c4-18 2-38 12-52z" fill="#b4764a"/>
+        <path d="M276 270c6 4 10 10 10 16M266 272c6 4 8 10 8 16" stroke="#9a5d36" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- laptop -->
+        <path d="M120 300h170l-16 98H136z" fill="url(#lap)" stroke="#e8a7b9" stroke-width="3"/>
+        <rect x="100" y="394" width="210" height="10" rx="5" fill="#e8a7b9"/>
+        <path d="M193 334c-6-10 4-18 12-10 8-8 18 0 12 10l-12 12z" fill="#d6466f"/>
+        <g transform="translate(140 352) rotate(-8)">
+          <rect width="46" height="24" rx="5" fill="#fff"/>
+          <text x="23" y="16" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="10" fill="#d6466f">SQL</text>
+        </g>
+        <g transform="translate(236 360) rotate(6)">
+          <rect width="38" height="22" rx="5" fill="#fff"/>
+          <text x="19" y="15" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="10" fill="#5f8f6b">py</text>
+        </g>
+        <!-- books -->
+        <g transform="translate(330 368)">
+          <rect width="96" height="14" rx="3" fill="#f7c2cf"/>
+          <rect x="6" y="-14" width="86" height="14" rx="3" fill="#fbdde5"/>
+          <rect x="-4" y="-28" width="92" height="14" rx="3" fill="#f2a9bc"/>
+          <text x="44" y="-18" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8" font-weight="700" fill="#fff">OPTIMISATION</text>
+          <text x="49" y="-4" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8" font-weight="700" fill="#d6466f">DATA PIPELINES</text>
+          <text x="48" y="10" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="8" font-weight="700" fill="#fff">FINANCE</text>
+        </g>
+        <!-- sparkles -->
+        <g fill="#d6466f">
+          <path d="M80 120l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+          <path d="M420 110l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" opacity=".7"/>
+        </g>
+      </svg>
+      <div class="neon">clean<br>model<br>ship<br>repeat ♡</div>
+      <div class="note">built in Nairobi ✿</div>
     </div>
-    <p>The same port scheduling problem solved two ways and compared on the same instances. The exact model (PuLP/CBC) beats the heuristic by about 38% on small cases; on larger, congested ones the solver can't match the heuristic in the time allowed. Includes a regression test for a floating-point bug I found along the way.</p>
-    <p class="meta"><a href="https://berth-scheduling-greedy-heuristic-vs-exact-milp-tbcueuqmeoeueu.streamlit.app/">Live app</a></p>
-  </div>
+  </header>
+</div>
 
-  <div class="item">
-    <div class="item-head">
-      <strong>Tabular data cleaning pipeline</strong>
-      <span class="year">2026</span>
+<!-- WHAT I DO -->
+<section id="do">
+  <div class="wrap">
+    <div class="do-panel reveal">
+      <div>
+        <span class="eyebrow">What I do ✎</span>
+        <h2>I build tools that make <em>sense</em> of data.</h2>
+      </div>
+      <div class="do-grid">
+        <div class="do-item">
+          <div class="do-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#d6466f" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div>
+          <h3>Data engineering</h3>
+          <p>Schemas, pipelines and cleaning that leave a paper trail.</p>
+        </div>
+        <div class="do-item">
+          <div class="do-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#d6466f" stroke-width="2" stroke-linecap="round"><path d="M3 20h18M6 16l4-5 3 3 5-7"/><circle cx="18" cy="7" r="1.6" fill="#d6466f"/></svg></div>
+          <h3>Machine learning</h3>
+          <p>Models I can explain, tested before I trust them.</p>
+        </div>
+        <div class="do-item">
+          <div class="do-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#d6466f" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="7" height="7" rx="1.5"/><rect x="14" y="4" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/></svg></div>
+          <h3>Optimisation</h3>
+          <p>Scheduling and allocation with MILP and heuristics.</p>
+        </div>
+        <div class="do-item">
+          <div class="do-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#d6466f" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M17 6.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2 2.6 5 3.3 5 1.5 5 3.6-2.2 3.1-5 3.1-5-1.2-5-3"/></svg></div>
+          <h3>Financial modelling</h3>
+          <p>Studying financial engineering and FAST-standard models.</p>
+        </div>
+      </div>
     </div>
-    <p>Takes a messy CSV and returns a cleaned file, a report of everything that was changed, and before/after plots. Handles duplicates, mostly-empty columns, missing values, outliers and inconsistent text. Every step is logged, and there are 12 tests.</p>
-    <p class="meta"><a href="https://tabular-data-cleaning-pipeline-jqcmhfehoy8foki95vuysf.streamlit.app/">Live app</a></p>
   </div>
+</section>
 
-  <h2>Currently</h2>
-  <ul>
-    <li>Data Engineering programme, ALX Africa</li>
-    <li>MSc Financial Engineering, WorldQuant University</li>
-    <li>InVhestia financial modelling challenge (FAST standard)</li>
-    <li>A physics-informed neural network for reservoir pressure, as a side project</li>
-  </ul>
-
-  <h2>Experience</h2>
-  <div class="item">
-    <div class="item-head">
-      <strong>IT Intern, NACADA Authority</strong>
-      <span class="year">May to Aug 2024</span>
+<!-- PROJECTS -->
+<section id="work">
+  <div class="wrap">
+    <div class="proj-head reveal">
+      <div>
+        <span class="eyebrow">My projects ✦</span>
+        <h2>Things I've <em>built</em>, end to end.</h2>
+        <p class="sub">Each one is tested, measured and live, or honestly marked as in progress.</p>
+      </div>
+      <a class="btn btn-ghost" href="https://github.com/wanjira234">All my code →</a>
     </div>
-    <p>Hardware, software and network support across departments; backups, access control and security checks with the senior IT team.</p>
-  </div>
-  <div class="item">
-    <div class="item-head">
-      <strong>IT Intern, GDC SACCO</strong>
-      <span class="year">Nov to Dec 2019</span>
+
+    <div class="proj-grid">
+      <!-- Maziwa -->
+      <article class="proj reveal">
+        <div class="proj-art">
+          <span class="num">01</span>
+          <svg viewBox="0 0 320 200" aria-hidden="true">
+            <rect x="0" y="150" width="320" height="50" fill="#f7c2cf" opacity=".6"/>
+            <g transform="translate(40 52)">
+              <path d="M20 0h24v14l10 18v68a8 8 0 0 1-8 8H18a8 8 0 0 1-8-8V32l10-18z" fill="#fff" stroke="#e8a7b9" stroke-width="3"/>
+              <rect x="10" y="56" width="44" height="22" fill="#d6466f"/>
+              <text x="32" y="71" text-anchor="middle" font-family="DM Sans" font-weight="700" font-size="10" fill="#fff">MAZIWA</text>
+            </g>
+            <g transform="translate(130 40)">
+              <rect width="160" height="110" rx="12" fill="#fff" stroke="#e8a7b9" stroke-width="2"/>
+              <text x="14" y="22" font-family="DM Sans" font-weight="700" font-size="10" fill="#6e5562">Litres per day</text>
+              <polyline points="14,88 36,74 58,80 80,60 102,64 124,46 146,40" fill="none" stroke="#d6466f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <g fill="#f2b6c6"><rect x="14" y="92" width="14" height="8" rx="2"/><rect x="36" y="92" width="14" height="8" rx="2"/><rect x="58" y="92" width="14" height="8" rx="2"/><rect x="80" y="92" width="14" height="8" rx="2"/><rect x="102" y="92" width="14" height="8" rx="2"/><rect x="124" y="92" width="14" height="8" rx="2"/></g>
+              <circle cx="146" cy="40" r="5" fill="#d6466f"/>
+            </g>
+          </svg>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title"><h3>Maziwa Plus</h3><span class="tag">In progress</span></div>
+          <p>Dairy yield and feed tracking, built from my parents' farm outwards. Farmers log milk and feed in the units they actually use; the app turns it into cost per litre and margin. Vets and the milk buyer get their own views.</p>
+          <div class="stats">
+            <span class="stat"><b>3</b> user roles</span>
+            <span class="stat">advice after <b>14</b> days of data</span>
+            <span class="stat">changes capped at <b>10%</b></span>
+          </div>
+          <p class="stack">Streamlit · PostgreSQL (Supabase, plain SQL) · FNB App of the Year Hackathon, team entry</p>
+        </div>
+      </article>
+
+      <!-- Berth -->
+      <article class="proj reveal">
+        <div class="proj-art">
+          <span class="num">02</span>
+          <svg viewBox="0 0 320 200" aria-hidden="true">
+            <path d="M0 150c40-10 80 10 120 0s80-10 120 0 60 8 80 4V200H0z" fill="#9fc6d6" opacity=".55"/>
+            <rect x="0" y="120" width="320" height="10" fill="#e8a7b9"/>
+            <g fill="#fff" stroke="#e8a7b9" stroke-width="2">
+              <rect x="40" y="60" width="50" height="60" rx="4"/>
+              <rect x="130" y="60" width="50" height="60" rx="4"/>
+              <rect x="220" y="60" width="50" height="60" rx="4"/>
+            </g>
+            <g font-family="DM Sans" font-weight="700" font-size="11" fill="#d6466f" text-anchor="middle">
+              <text x="65" y="94">B1</text><text x="155" y="94">B2</text><text x="245" y="94">B3</text>
+            </g>
+            <g transform="translate(70 140)"><path d="M0 0h70l-10 18H8z" fill="#d6466f"/><rect x="18" y="-14" width="14" height="14" fill="#f2b6c6"/><rect x="36" y="-14" width="14" height="14" fill="#fff"/></g>
+            <g transform="translate(190 146)"><path d="M0 0h56l-8 14H6z" fill="#6e5562"/><rect x="16" y="-12" width="12" height="12" fill="#f2b6c6"/></g>
+            <text x="160" y="36" text-anchor="middle" font-family="Caveat" font-size="22" fill="#6e5562">greedy vs. exact</text>
+          </svg>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title"><h3>Berth scheduling</h3><span class="tag live">Live</span></div>
+          <p>One port scheduling problem, solved two ways and compared on the same instances: a fast greedy heuristic and an exact MILP model.</p>
+          <div class="stats">
+            <span class="stat">exact wins by <b>~38%</b> on small cases</span>
+            <span class="stat">regression-tested</span>
+          </div>
+          <p class="stack">Python · PuLP (CBC) · NumPy · Streamlit</p>
+          <a class="proj-link" href="https://berth-scheduling-greedy-heuristic-vs-exact-milp-tbcueuqmeoeueu.streamlit.app/">Open the app ↗</a>
+        </div>
+      </article>
+
+      <!-- Cleaning -->
+      <article class="proj reveal">
+        <div class="proj-art">
+          <span class="num">03</span>
+          <svg viewBox="0 0 320 200" aria-hidden="true">
+            <g transform="translate(30 40)">
+              <rect width="110" height="120" rx="10" fill="#fff" stroke="#e8a7b9" stroke-width="2"/>
+              <g fill="#f2b6c6"><rect x="12" y="14" width="40" height="8" rx="2"/><rect x="58" y="14" width="40" height="8" rx="2"/></g>
+              <g fill="#e9d9de"><rect x="12" y="32" width="40" height="8" rx="2"/><rect x="58" y="32" width="20" height="8" rx="2"/><rect x="12" y="50" width="26" height="8" rx="2"/><rect x="58" y="50" width="40" height="8" rx="2"/><rect x="12" y="68" width="40" height="8" rx="2"/><rect x="12" y="86" width="34" height="8" rx="2"/><rect x="58" y="86" width="40" height="8" rx="2"/></g>
+              <text x="74" y="76" font-family="DM Sans" font-weight="700" font-size="12" fill="#d6466f">NaN</text>
+              <text x="40" y="58" font-family="DM Sans" font-weight="700" font-size="10" fill="#d6466f">??</text>
+            </g>
+            <path d="M152 100h24" stroke="#d6466f" stroke-width="4" stroke-linecap="round"/>
+            <path d="M170 92l10 8-10 8" fill="none" stroke="#d6466f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <g transform="translate(190 40)">
+              <rect width="110" height="120" rx="10" fill="#fff" stroke="#5f8f6b" stroke-width="2"/>
+              <g fill="#cfe5d4"><rect x="12" y="14" width="40" height="8" rx="2"/><rect x="58" y="14" width="40" height="8" rx="2"/><rect x="12" y="32" width="40" height="8" rx="2"/><rect x="58" y="32" width="40" height="8" rx="2"/><rect x="12" y="50" width="40" height="8" rx="2"/><rect x="58" y="50" width="40" height="8" rx="2"/><rect x="12" y="68" width="40" height="8" rx="2"/><rect x="58" y="68" width="40" height="8" rx="2"/></g>
+              <circle cx="88" cy="98" r="12" fill="#5f8f6b"/>
+              <path d="M82 98l4 4 8-8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        <div class="proj-body">
+          <div class="proj-title"><h3>Data cleaning pipeline</h3><span class="tag live">Live</span></div>
+          <p>Upload a messy CSV, get back a clean file, a report of every change and before/after plots. Duplicates, gaps, outliers and messy text, nothing silent.</p>
+          <div class="stats">
+            <span class="stat"><b>12</b> automated tests</span>
+            <span class="stat">every step logged</span>
+          </div>
+          <p class="stack">Python · Pandas · Matplotlib · Streamlit</p>
+          <a class="proj-link" href="https://tabular-data-cleaning-pipeline-jqcmhfehoy8foki95vuysf.streamlit.app/">Open the app ↗</a>
+        </div>
+      </article>
     </div>
-    <p>Help desk support and maintaining hardware, software and network equipment.</p>
   </div>
+</section>
 
-  <h2>Education</h2>
-  <p>BSc Information Technology, Jomo Kenyatta University of Agriculture and Technology, 2021 to 2025. Second Class Honours (Upper Division).</p>
+<!-- NOW + EXPERIENCE -->
+<section id="now">
+  <div class="wrap">
+    <div class="two">
+      <div class="card reveal">
+        <span class="eyebrow">Right now ☕</span>
+        <h3>What's on my desk</h3>
+        <ul class="timeline">
+          <li><b>Data Engineering programme</b><span>ALX Africa · 2026</span></li>
+          <li><b>MSc Financial Engineering</b><span>WorldQuant University · in progress</span></li>
+          <li><b>InVhestia modelling challenge</b><span>FAST-standard financial models</span></li>
+          <li><b>Physics-informed neural network</b><span>Reservoir pressure, side project</span></li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <span class="eyebrow">Background ✿</span>
+        <h3>Where I've been</h3>
+        <ul class="timeline">
+          <li><b>BSc Information Technology</b><span>JKUAT · 2021–2025 · Second Class Honours (Upper)</span></li>
+          <li><b>IT Intern, NACADA Authority</b><span>May–Aug 2024 · systems, networks, backups, access control</span></li>
+          <li><b>IT Intern, GDC SACCO</b><span>Nov–Dec 2019 · help desk and infrastructure</span></li>
+          <li><b>Certifications</b><span>DataCamp Professional Data Scientist · IBM Data Science</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <h2>Contact</h2>
-  <p><a href="mailto:epiphanywanjira@gmail.com">epiphanywanjira@gmail.com</a> · +254 757 828 499</p>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact reveal">
+      <span class="sticky">say hi ♡</span>
+      <div>
+        <span class="eyebrow">Contact ✉</span>
+        <h2>Let's build something <em>useful</em> together.</h2>
+        <p class="sub">Open to data roles, collaborations and interesting problems. I reply to every email.</p>
+      </div>
+      <ul class="contact-list">
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><a href="mailto:epiphanywanjira@gmail.com">epiphanywanjira@gmail.com</a></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span>Nairobi, Kenya</span></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg></span><a href="https://linkedin.com/in/epiphany-wanjira-3721b722b">LinkedIn</a></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg></span><a href="https://github.com/wanjira234">github.com/wanjira234</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-  <footer>Updated November 2026</footer>
+<footer>Made by hand in Nairobi <span class="heart">♥</span> 2026</footer>
 
-</main>
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 </body>
 </html>
